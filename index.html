@@ -5,8 +5,63 @@
 <title>CARTEL CITY RP - تقديم رجال القانون</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* شاشة التحميل */
+#loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:linear-gradient(135deg,#000,#1a0000);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:9999;
+color:white;
+font-family:'Cairo',sans-serif;
+transition:opacity 0.6s ease;
+}
+
+.loader-logo{
+width:120px;
+animation:rotate 3s linear infinite;
+margin-bottom:15px;
+}
+
+.spinner{
+width:50px;
+height:50px;
+border:5px solid #333;
+border-top:5px solid red;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:15px 0;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+@keyframes rotate{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+</style>
 </head>
+
 <body>
+
+<!-- شاشة التحميل -->
+<div id="loader">
+<img src="logo.png" class="loader-logo">
+<h2>CARTEL CITY RP</h2>
+<div class="spinner"></div>
+<p>جاري تحميل نظام التقديم...</p>
+</div>
 
 <div class="overlay">
 
@@ -31,13 +86,13 @@
 <input type="number" id="age" placeholder="عمرك" required>
 <input type="number" id="hours" placeholder="كم ساعة لعب عندك؟" required>
 
-<select id="mic">
+<select id="mic" required>
 <option value="">هل لديك مايك ممتاز؟</option>
 <option>نعم</option>
 <option>لا</option>
 </select>
 
-<select id="record">
+<select id="record" required>
 <option value="">هل سبق تبندت؟</option>
 <option>نعم</option>
 <option>لا</option>
@@ -61,10 +116,20 @@
 </form>
 
 </div>
-
 </div>
 
 <script>
+
+/* إخفاء شاشة التحميل */
+window.addEventListener("load",function(){
+setTimeout(function(){
+document.getElementById("loader").style.opacity="0";
+setTimeout(function(){
+document.getElementById("loader").style.display="none";
+},600);
+},2000);
+});
+
 const WEBHOOK_URL = "PUT_YOUR_WEBHOOK_HERE";
 
 document.getElementById("applyForm").addEventListener("submit", async function(e){
